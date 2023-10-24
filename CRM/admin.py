@@ -19,9 +19,9 @@ class Follow_UpTabularInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     inlines = [Follow_UpTabularInline,]
-    list_display =['__str__','date','status','barcode','serial','color','brand','client','company','active','purchase_date','issue','received_date','action','delivery_date']
+    list_display =['__str__','status','barcode','serial','des','client','company','active','invoice','purchase_date','issue','received_date','action','cost','delivery_date']
     list_filter=['id','status','color','brand','client','company','active','purchase_date','issue','received_date','action','delivery_date']
-    search_fields=['barcode','serial',]
+    search_fields=['barcode','serial']
     # exclude = ('id',)
 class Follow_UpAdmin(admin.ModelAdmin):
     list_display =['__str__','connect','comment']

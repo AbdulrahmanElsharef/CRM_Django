@@ -20,7 +20,7 @@ class Client(models.Model):
         return self.name
 
 ORDER_STATUS=(('Pending','Pending'),('Done','Done'),('Delivered','Delivered'))
-WARRANTY=(('In_Active','In_Active'),('Out_Active','Out_Active'))
+WARRANTY=(('In_Warranty','In_Warranty'),('Out_Warranty','Out_Warranty'))
 CONNECT=(('Phone','Phone'),('WatsApp','WatsApp'),('Messenger','Messenger'))
 RATE=(('راضى','راضى'),('غير_راضى','غير_راضى'),('يحتاج_تطوير','يحتاج_تطوير'))
 
@@ -30,6 +30,8 @@ class Company(models.Model)  :
     note=models.CharField(("Note"), max_length=50,default='No Note')
     def __str__(self):
         return self.name
+    class Meta:
+        verbose_name_plural = "Company"
     
 class Issue(models.Model)  :
     name=models.CharField(("Name"), max_length=25,unique=True)
@@ -50,7 +52,6 @@ class Action(models.Model)  :
         return self.name
     
 class Order(models.Model):
-    date=models.DateField(("Date"), auto_now=True,)
     status=models.CharField(("Status"), max_length=50,choices=ORDER_STATUS,default=ORDER_STATUS[0])
     barcode=models.CharField(("Barcode"), max_length=50)
     serial=models.CharField(("S.N"), max_length=50,unique=True)
@@ -67,10 +68,14 @@ class Order(models.Model):
     received_date=models.DateField(("Received_Date"),default=timezone.now)
     action=models.ForeignKey(Action, on_delete=models.PROTECT,verbose_name='Action',related_name='order_Action')
     act_detail=models.TextField(("Detail"),max_length=300,default='Write Action Detail')
+    cost=models.IntegerField(("Cost"),max_length=15,default=0)
     delivery_date=models.DateField(("Delivery_Date"),null=True,blank=True)
     note=models.CharField(("Note"), max_length=50,default='No Note')
     def __str__(self):
-        return f"order--{self.id}"
+        return f"REQ--{self.id}"
+    
+    class Meta:
+        verbose_name_plural = "Requests"
     
 class Follow_Up(models.Model):
     order=models.ForeignKey(Order, on_delete=models.PROTECT,verbose_name='Order',related_name='order_Follow_Up')
@@ -81,5 +86,6 @@ class Follow_Up(models.Model):
     def __str__(self):
         return str(self.order)
 
-
+    class Meta:
+        verbose_name_plural = "Follow_Up"
     
