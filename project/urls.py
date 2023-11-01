@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from Technical import views
 
 urlpatterns = [
     # path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
-    path('i18n/', include('django.conf.urls.i18n')),
+    path('print/', views.ddd,name='print'),
+    path('print/<int:id>/', views.request_invoice,name='invoice'),
+    # path('', include('admin_soft.urls')),
 
 ]
 
