@@ -27,6 +27,7 @@ urlpatterns = [
     path('print/technical/<int:id>/', views.technical,name='technical'),
     path('print/credit_note/<int:id>/', views.credit_note,name='credit_note'),
     path('print/replacement/<int:id>/', views.replacement,name='replacement'),
+    path('print/report/<int:id>/', views.report,name='report'),
 
 ]
 

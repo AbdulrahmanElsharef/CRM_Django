@@ -44,17 +44,7 @@
                     </div>
                     <!-- Row end -->
                     <div>
-                      <!-- <form method="GET" > -->
-                        <!-- {% csrf_token %}  -->
-                        <!-- {{ myfilter.form }} -->
-                        <!-- <label for="">Request NO</label> -->
-                        <!-- <input type="text"  name='id'> -->
-                        <!-- <label for="">client__name</label> -->
-                        <!-- <input type="text"  name='client__name'> -->
-                        <!-- <label for="">Serach</label> -->
-                        <!-- <input type='submit' class="btn btn-primary" > -->
-                      <!-- <button class="btn btn-primary"  type="submit">Search</button> -->
-                   <!-- </form> -->
+                     
                   </div>
                   <div class="invoice-body">
                     <!-- Row start -->
@@ -87,11 +77,13 @@
                                 <td><a href="{% url 'invoice' item.id %}"><button type="button" class="btn btn-primary">Invoice</button></a></td>
                                 {% for print in item.request_Action_Detail.all %}
                                 {% if print.action.name == "Reject"  or print.action.name == "Repair" %}
-                                <td><a href="{% url 'technical' item.id %}"><button type="button" class="btn btn-primary">Technical</button></a></td>
+                                <td><a href="{% url 'technical' item.id %}"><button type="button" class="btn btn-warning">Technical</button></a></td>
                                 {% elif print.action.name == "Credit_Note" %}
                                 <td><a href="{% url 'credit_note' item.id %}"><button type="button" class="btn btn-success">Credit_note</button></a></td>
                                 {% elif print.action.name == "Replacement" %}
-                                <td> <a href="{% url 'replacement' item.id %}"><button type="button" class="btn btn-warning">Replacement</button></a></td>
+                                <td> <a href="{% url 'replacement' item.id %}"><button type="button" class="btn btn-info">Replacement</button></a></td>
+                                {% else   %}
+                                <td> <a href="{% url 'report' item.id %}"><button type="button" class="btn btn-secondary">Report</button></a></td>
                                 {% endif %}
                                 {% endfor %}
                               </tr>

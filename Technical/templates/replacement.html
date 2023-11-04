@@ -87,7 +87,7 @@
                             <tbody>
                               {% for print in obj.request_Action_Detail.all %}
                               {% if print.action.name == "Replacement" %}
-                              <tr>
+                              <tr style="font-weight: bold;">
                                 <td>
                                   {{print.product.barcode}}
                                   </td>

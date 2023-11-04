@@ -84,10 +84,10 @@ body{margin-top:20px;
 
 
 .custom-table {
-    border: 1px solid #e0e3ec;
+    border: 1px solid #101010;
 }
 .custom-table thead {
-    background: #007ae1;
+    background: #a6ceef;
 }
 .custom-table thead th {
     border: 0;

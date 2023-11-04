@@ -41,3 +41,9 @@ def replacement(request, id):
     obj = get_object_or_404(Request, id=id)
     context={'obj':obj,}
     return render(request, 'replacement.html', context)
+
+def report(request, id):
+    # Retrieve a specific record by ID
+    obj = get_object_or_404(Request, id=id)
+    context={'obj':obj,}
+    return render(request, 'report.html', context)

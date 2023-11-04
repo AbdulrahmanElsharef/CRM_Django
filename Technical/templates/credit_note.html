@@ -70,9 +70,9 @@
                       <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="table-responsive">
                           <table class="table custom-table m-0">
-                            <thead>
-                              <tr>
-                                <th>Barcode</th>
+                            <thead style="font-weight: bold; display">
+                              <tr >
+                                <th class="text-left">Barcode</th>
                                 <th>Item Name</th>
                                 <th>Color</th>
                                 <th>Serial_NO</th>
@@ -83,7 +83,7 @@
                             <tbody>
                               {% for print in obj.request_Action_Detail.all %}
                               {% if print.action.name == "Credit_Note"  %}
-                              <tr>
+                              <tr style="font-weight: bold;">
                                 <td>
                                   {{print.product.barcode}}
                                   
@@ -105,8 +105,8 @@
                   </div>
                   <div class="invoice-footer" style="text-align: right;">
                     <br>
-                    <p> ...الساده الاعزاء تحية طيبة وبعد</p>
-                    <p>بعد فحص المنتج تاكدنا من وجود عيب صناعه بالمنتج ولعدم توافر مخزون من هذا المنتج سيتم عمل استرداد لقيمة الفاتورة</p>
+                    <b><p> ...الساده الاعزاء تحية طيبة وبعد</p>
+                    <p>بعد فحص المنتج تاكدنا من وجود عيب صناعه بالمنتج ولعدم توافر مخزون من هذا المنتج سيتم عمل استرداد لقيمة الفاتورة</p></b>
                   </div>
                   <div class="invoice-footer">
                     Thanks from the technical support department of Al-Tawheed Group
