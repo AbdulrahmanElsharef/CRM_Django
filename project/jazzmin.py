@@ -3,9 +3,9 @@ JAZZMIN_SETTINGS = {
     "site_title": "ALT_TEC_SUP",
     "site_header": "ALT_TEC_SUP",
     "site_brand": "ALT_TEC_SUP",
-    "site_icon":None,
+    "site_icon":"./logo.png",
     # Add your own branding here
-    "site_logo": None,
+    "site_logo": "./logo.png",
     "welcome_sign": "Welcome to the ALtawheed_Technical",
     # Copyright on the footer
     "copyright": "Abdulrahman Elsharef",
@@ -76,7 +76,7 @@ JAZZMIN_SETTINGS = {
     # Related Modal #
     #################
     # Use modals instead of popups
-    "related_modal_active": None,
+    "related_modal_active": False,
     #############
     # UI Tweaks #
     #############

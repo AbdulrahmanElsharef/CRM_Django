@@ -32,7 +32,7 @@
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <a href="#" class="invoice-logo">
                           <img src="/static/logo.png" data-holder-rendered="true" /><br>
-                          Credit Note
+                          <u> Credit_Note</u>
                         </a>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -49,7 +49,7 @@
                       <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                         <div class="invoice-details">
                           <address style="font-weight: bold;color:black;">
-                            Company_Name : {{obj.End_User}}<br><br>
+                            Company_Name : {{obj.Vendor}}<br><br>
                           </address>
                         </div>
                       </div>
@@ -75,24 +75,26 @@
                                 <th>Barcode</th>
                                 <th>Item Name</th>
                                 <th>Color</th>
-                                <th>Received Serial</th>
+                                <th>Serial_NO</th>
                                 <th>REF_NO</th>
                                 <th>Note</th>
                               </tr>
                             </thead>
                             <tbody>
-                              {% for item in obj.request_Failer_Detail.all %}
+                              {% for print in obj.request_Action_Detail.all %}
+                              {% if print.action.name == "Credit_Note"  %}
                               <tr>
                                 <td>
-                                  {{item.product.barcode}}
+                                  {{print.product.barcode}}
                                   
                                 </td>
-                                <td>{{item.product.des}}</td>
-                                <td>{{item.product.color}}</td>
-                                <td>{{item.serial}}</td>
-                                <td>{{item.ref}}</td>
-                                <td>{{item.note}}</td>
+                                <td>{{print.product.des}}</td>
+                                <td>{{print.product.color}}</td>
+                                <td>{{print.serial_out}}</td>
+                                <td>{{print.ref}}</td>
+                                <td>{{print.note}}</td>
                               </tr>
+                              {% endif %}
                               {% endfor %}             
                             </tbody>
                           </table>
@@ -105,6 +107,9 @@
                     <br>
                     <p> ...الساده الاعزاء تحية طيبة وبعد</p>
                     <p>بعد فحص المنتج تاكدنا من وجود عيب صناعه بالمنتج ولعدم توافر مخزون من هذا المنتج سيتم عمل استرداد لقيمة الفاتورة</p>
+                  </div>
+                  <div class="invoice-footer">
+                    Thanks from the technical support department of Al-Tawheed Group
                   </div>
                   <br><br><br><br><br>
                   <div style="text-align: center;">

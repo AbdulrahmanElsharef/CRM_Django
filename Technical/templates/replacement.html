@@ -33,7 +33,7 @@
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <a href="#" class="invoice-logo">
                           <img src="/static/logo.png" data-holder-rendered="true" /><br>
-                          Replacement
+                          <u>Replacement Report</u>
                         </a>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -77,29 +77,29 @@
                                 <th>Barcode</th>
                                 <th>Item Name</th>
                                 <th>Color</th>
-                                <th>Received Serial</th>
-                                <th>Note</th>
                                 <th>Delivered Serial</th>
                                 <th>REF_NO</th>
+                                <th>Note</th>
+                                <th>Received Serial</th>
+                                
                               </tr>
                             </thead>
                             <tbody>
-                              {% for item in obj.request_Action_Detail.all %}
-                              {% if item.action.name == "Reject" %}
+                              {% for print in obj.request_Action_Detail.all %}
+                              {% if print.action.name == "Replacement" %}
                               <tr>
                                 <td>
-                                  {{item.product.barcode}}
-                                  
-                                </td>
-                                <td>{{item.product.des}}</td>
-                                <td>{{item.product.color}}</td>
-                                <td>{{item.serial}}</td>
-
-                                <td>{{item.note}}</td>
-                                
+                                  {{print.product.barcode}}
+                                  </td>
+                                <td>{{print.product.des}}</td>
+                                <td>{{print.product.color}}</td>
+                                <td>{{print.serial_out}}</td>
+                                <td>{{print.ref}}</td>
+                                <td>{{print.note}}</td>
                                 {% for item in obj.request_Failer_Detail.all %}
-                                <td>{{item.serial}}</td>
-                                <td>{{item.ref}}</td>
+                                {% if item.product.barcode == print.product.barcode %}
+                                <td>{{item.serial_in}}</td>
+                                {% endif %}
                                 {% endfor %}
                               </tr>
                               {% endif %}
@@ -112,6 +112,9 @@
                       </div>
                     </div>
                     <!-- Row end -->
+                  </div>
+                  <div class="invoice-footer">
+                    Thanks from the technical support department of Al-Tawheed Group
                   </div>
 
                   <br><br><br><br><br>

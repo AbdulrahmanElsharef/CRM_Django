@@ -41,13 +41,16 @@ class Follow_UpTabularInline(admin.TabularInline):
     model = Follow_Up
 class ActionTabularInline(admin.TabularInline):
     model = Action_Detail
+    
 class IssueTabularInline(admin.TabularInline):
     model = Failer_Detail
+class ReportTabularInline(admin.TabularInline):
+    model = Report
 
   
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
-    inlines = [IssueTabularInline,ActionTabularInline,Follow_UpTabularInline]  
+    inlines = [IssueTabularInline,ActionTabularInline,ReportTabularInline,Follow_UpTabularInline]  
 
     list_display =['__str__','status','client','End_User','Vendor','received_date','note']
     list_filter=['id','status','client','End_User','Vendor__name','received_date',]
@@ -57,15 +60,15 @@ class RequestAdmin(admin.ModelAdmin):
 
 @admin.register(Failer_Detail)
 class Failer_DetailAdmin(admin.ModelAdmin):
-    list_display =['__str__','product','serial','active','invoice','purchase_date','issue',"ref",'User','company']
-    list_filter=["request__id",'product__barcode','serial','active','purchase_date','issue__name','request__End_User','request__Vendor__name']
+    list_display =['__str__','product','serial_in','active','invoice','purchase_date','issue','User','company']
+    list_filter=["request__id",'product__barcode','serial_in','active','purchase_date','issue__name','request__End_User','request__Vendor__name']
     
     
     
 @admin.register(Action_Detail)
 class Action_DetailAdmin(admin.ModelAdmin):
-    list_display =['__str__','product','serial','action','technician','delivery_date','cost','User','company',]
-    list_filter=["request__id",'product__barcode','serial','action__name','technician__name','delivery_date','request__End_User','request__Vendor__name']
+    list_display =['__str__','product','serial_out','action','technician','delivery_date','cost',"ref",'User','company',]
+    list_filter=["request__id",'product__barcode','serial_out','action__name','technician__name','delivery_date','request__End_User','request__Vendor__name']
 
 
 
@@ -73,3 +76,9 @@ class Action_DetailAdmin(admin.ModelAdmin):
 class Follow_UpAdmin(admin.ModelAdmin):
     list_display =['__str__','connect','msg_kind','comment','rate','note']
     list_filter=['request','connect','msg_kind','rate']
+
+
+@admin.register(Report)
+class Follow_UpAdmin(admin.ModelAdmin):
+    list_display =['__str__','complain','Report','advice','note']
+    list_filter=['request',]

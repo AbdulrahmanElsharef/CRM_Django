@@ -62,7 +62,7 @@
                           <h5>Vendor Account : {{obj.Vendor}}</h5>
                       </div>
                       <div class="col invoice-details">
-                          <h3 class="invoice-id">Request : ALT-REQ--{{obj.id}}</h3>
+                          <h3 class="invoice-id"><u>Request : ALT-{{obj}}</u></h3>
                           <h5 class="date">Received Date :{{obj.received_date|date:'D-d M Y' }} </h5>
                       </div>
                   </div>
@@ -84,7 +84,7 @@
                             <td class="text-left"><h6>{{ forloop.counter }}</td></h6>
                             <td class="text-left"><h6>{{fail.product.des}}</td></h6>
                               <td class="text-left"><h6>{{fail.product.barcode}}</h6></td>
-                              <td class="text-left"><h6>{{fail.serial}}</h6></td>
+                              <td class="text-left"><h6>{{fail.serial_in}}</h6></td>
                               <td class="text-left"><h6>{{fail.purchase_date|date:'D-d M Y'}}</h6></td>
                               <td class="text-left"><h6>{{fail.issue}}</h6></td>
                               <td class="text-left"><h6>{{fail.note}}</h6></td>

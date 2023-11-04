@@ -59,11 +59,7 @@ class Technician(models.Model)  :
     def __str__(self):
         return str(self.name)
     
-# class Officer_Name(models.Model)  :
-#     officer=models.CharField(_("officer"), max_length=25,unique=True)
-#     note=models.CharField(_("Note"), max_length=50,default='No Note')
-#     def __str__(self):
-#         return str(self.officer)
+
 
 class Action(models.Model)  :
     name=models.CharField(_("action"), max_length=25,unique=True)
@@ -80,7 +76,7 @@ class Request(models.Model):
     received_date=models.DateField(_("Received_Date"),default=timezone.now)
     note=models.CharField(_("Note"), max_length=50,default='No_Note')
     def __str__(self):
-        return f"REQ--{str(self.id)}"
+        return f"REQ0{str(self.id)}"
     
     def purchase(self):
         date=self.request_Failer_Detail.purchase_date
@@ -92,13 +88,12 @@ class Request(models.Model):
 class Failer_Detail(models.Model)  :
     request=models.ForeignKey(Request, on_delete=models.PROTECT,verbose_name=_('Request'),related_name='request_Failer_Detail')
     product=models.ForeignKey(Product, on_delete=models.PROTECT,verbose_name=_('Product'),related_name='Failer_Detail_Product')
-    serial=models.CharField(_("S.N_IN"), max_length=25)
+    serial_in=models.CharField(_("S.N_IN"), max_length=25)
     active=models.CharField(_("Active"), max_length=25,choices=WARRANTY,default=WARRANTY[0])
     purchase_date=models.DateField(_("Purchase_Date"),null=True,blank=True)
     invoice=models.ImageField(_("invoice"), upload_to='Invoice',null=True,blank=True)
     issue=models.ForeignKey(Issue, on_delete=models.PROTECT,verbose_name='Issue',related_name='Issue_name')
     detail=models.CharField(_("Detail"),max_length=300,default='Write Issue Detail')
-    ref=models.CharField(_("REF_NUM"), max_length=25,default='No_Ref')
     note=models.CharField(_("Note"), max_length=50,default='No_Note')
     
     def __str__(self):
@@ -121,12 +116,13 @@ class Failer_Detail(models.Model)  :
 class Action_Detail(models.Model)  :
     request=models.ForeignKey(Request, on_delete=models.PROTECT,verbose_name=_('Request'),related_name='request_Action_Detail')
     product=models.ForeignKey(Product, on_delete=models.PROTECT,verbose_name=_('Product'),related_name='Action_Detail_Product')
-    serial=models.CharField(_("S.N_Out"), max_length=50)
+    serial_out=models.CharField(_("S.N_Out"), max_length=50)
     action=models.ForeignKey(Action, on_delete=models.PROTECT,verbose_name='Action',related_name='Action_name')
     detail=models.CharField(_("Detail"),max_length=300,default='Write Action Detail')
     delivery_date=models.DateField(_("Delivery_Date"),null=True,blank=True)
     technician=models.ForeignKey(Technician, on_delete=models.PROTECT,verbose_name='Technician',related_name='Action_Technician')
     cost=models.IntegerField(_("Cost"),default=0)
+    ref=models.CharField(_("REF_NUM"), max_length=25,default='No_Ref')
     note=models.CharField(_("Note"), max_length=50,default='No Note')
     def __str__(self):
         return str(self.request)
@@ -156,11 +152,11 @@ class Follow_Up(models.Model):
         verbose_name_plural = "Follow_Up"
     
 
-# class Delivery(models.Model):
-#     request=models.OneToOneField(Request, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Request'),related_name='request_Delivery')
-#     delivery_kind=models.CharField(_("Active"), max_length=25,choices=DELIVERY_kind,default=WARRANTY[0])
-#     officer=models.ForeignKey(Officer_Name, on_delete=models.PROTECT,verbose_name='Officer',related_name='Delivery_Officer')
-#     address=models.CharField(_("Address"), max_length=200,default="NO_Address")
-#     note=models.CharField(_("Note"), max_length=50,default='No Note')
-#     def __str__(self):
-#         return str(self.request)
+class Report(models.Model):
+    request=models.OneToOneField(Request, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Request'),related_name='request_Report')
+    complain=models.TextField(_("Complain"),max_length=500)
+    Report=models.TextField(_("Report"),max_length=500)
+    advice=models.TextField(_("Advice"), max_length=500)
+    note=models.CharField(_("Note"), max_length=50)
+    def __str__(self):
+        return str(self.request)

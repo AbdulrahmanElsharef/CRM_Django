@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Technical',
     'import_export',
+    'django_filters',
     
 ]
 

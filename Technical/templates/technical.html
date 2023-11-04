@@ -33,7 +33,7 @@
                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                         <a href="#" class="invoice-logo">
                           <img src="/static/logo.png" data-holder-rendered="true" /><br>
-                          Technical_Report
+                        <u>Technical_Report</u>
                         </a>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -79,41 +79,43 @@
                                 <th>Barcode</th>
                                 <th>Item Name</th>
                                 <th>Color</th>
-                                <th>Received Serial</th>
+                                <th>Serial_NO</th>
                                 <th>REF_NO</th>
                                 <th>Note</th>
+                                <th>Cost</th>
                               </tr>
                             </thead>
                             <tbody>
-                              {% for item in obj.request_Failer_Detail.all %}
+                              {% for print in obj.request_Action_Detail.all %}
+                              {% if print.action.name == "Reject" or print.action.name == "Repair"  %}
                               <tr>
                                 <td>
-                                  {{item.product.barcode}}
+                                  {{print.product.barcode}}
                                   
                                 </td>
-                                <td>{{item.product.des}}</td>
-                                <td>{{item.product.color}}</td>
-                                <td>{{item.serial}}</td>
-                                <td>{{item.ref}}</td>
-                                <td>{{item.note}}</td>
+                                <td>{{print.product.des}}</td>
+                                <td>{{print.product.color}}</td>
+                                <td>{{print.serial_out}}</td>
+                                <td>{{print.ref}}</td>
+                                <td>{{print.note}}</td>
+                                <td>{{print.cost}}</td>
                               </tr>
+                              
+                              {% endif %}
                               {% endfor %}
-                              {% for item in obj.request_Failer_Detail.all %}
+                              
                               <tr style="font-weight: bold;" dir="rtl">
-
-                                <td colspan="2" >
+                                {% comment %} {% for report in obj.request_Report.all %} {% endcomment %}
+                                <td colspan="1" >
                                   <p>
                                     Client Complaint<br>
                                   </p>
                                 </td>	
-                                <td colspan="5" >
+                                <td colspan="6" >
                                   <p>
-                                    {{item.detail}}
+                                    {{obj.request_Report.complain}}
                                   </p>
                                 </td>		
-                                {% endfor %}
-                              
-                              {% for item in obj.request_Action_Detail.all %}
                               <tr style="font-weight: bold;">
 
                                 <td colspan="1" >
@@ -121,9 +123,9 @@
                                     Test Result<br>
                                   </p>
                                 </td>		
-                                <td colspan="5" >
+                                <td colspan="6" >
                                   <p>
-                                  {{item.detail}}
+                                  {{obj.request_Report.Report}}
                                   </p>
                                 </td>	
                                
@@ -135,14 +137,29 @@
                                     Recommendation Action<br>
                                   </p>
                                 </td>		
-                                <td colspan="5" >
+                                <td colspan="6" >
                                   <p>
-                                    {{item.note}}
+                                    {{obj.request_Report.advice}}
                                   </p>
                                 </td>	
                                
                               </tr>
-                              {% endfor %}
+                              <tr style="font-weight: bold;">
+
+                                <td colspan="1" >
+                                  <p>
+                                    Note<br>
+                                  </p>
+                                </td>		
+                                <td colspan="6" >
+                                  <p>
+                                    {{obj.request_Report.note}}
+                                  </p>
+                                </td>	
+                               
+                              </tr>
+                              
+                              {% comment %} {% endfor %} {% endcomment %}
                             </tbody>
                           </table>
                         </div>
@@ -152,7 +169,7 @@
                   </div>
 
                   <div class="invoice-footer">
-                    Thank you for your Business.
+                    Thanks from the technical support department of Al-Tawheed Group
                   </div>
                   <br><br><br><br><br>
                   <div style="text-align: center;">
