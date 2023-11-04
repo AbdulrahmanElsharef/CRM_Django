@@ -4,17 +4,18 @@ from django.utils.translation import gettext as _
 
 # Create your models here.
 
-ORDER_STATUS=(("",""),('Pending','Pending'),('Done','Done'),('Delivered','Delivered'))
-MESSAGE_KIND=(("",""),('Pending_MSG','Pending_MSG'),('Done_MSG','Done_MSG'),('Delivered_MSG','Delivered_MSG'),('FollowUP_MSG','FollowUP_MSG'))
-WARRANTY=(("",""),('In_Warranty','In_Warranty'),('Out_Warranty','Out_Warranty'))
-CONNECT=(("",""),('Phone','Phone'),('WatsApp','WatsApp'),('Messenger','Messenger'))
-RATE=(("",""),('راضى','راضى'),('غير_راضى','غير_راضى'),('يحتاج_تطوير','يحتاج_تطوير'))
-CLIENT_kind=(("",""),('End_User','End_User'),('Vendor','Vendor'))
+ORDER_STATUS=(('Pending','Pending'),('Done','Done'),('Delivered','Delivered'))
+MESSAGE_KIND=(('Pending_MSG','Pending_MSG'),('Done_MSG','Done_MSG'),('Delivered_MSG','Delivered_MSG'),('FollowUP_MSG','FollowUP_MSG'))
+WARRANTY=(('In_Warranty','In_Warranty'),('Out_Warranty','Out_Warranty'))
+CONNECT=(('Phone','Phone'),('WatsApp','WatsApp'),('Messenger','Messenger'))
+# DELIVERY_kind=(('In_Office','In_Office'),('Out_Office','Out_Office'),('At_Home','At_Home'))
+RATE=(('راضى','راضى'),('غير_راضى','غير_راضى'),('يحتاج_تطوير','يحتاج_تطوير'))
+CLIENT_kind=(('End_User','End_User'),('I_R_Client','I_R_Client'),('O_R_Client','O_R_Client'),('Out_Source','Out_Source'))
 
 
     
 class End_User(models.Model):
-    name=models.CharField(_("Name"), max_length=50)
+    name=models.CharField(_("End_User"), max_length=50)
     phone=models.CharField(_("Phone"), max_length=25)
     email=models.EmailField(_("Email"), max_length=50,null=True,blank=True)
     note=models.CharField(_("User_Note"), max_length=50,default='No Note')
@@ -24,7 +25,7 @@ class End_User(models.Model):
 
 
 class Vendor(models.Model):
-    name=models.CharField(_("Name"), max_length=100,unique=True)
+    name=models.CharField(_("company"), max_length=100,unique=True)
     logo=models.ImageField(_("Logo"), upload_to='Vendor',null=True,blank=True)
     note=models.CharField(_("Note"), max_length=50,default='No Note')
     def __str__(self):
@@ -47,19 +48,25 @@ class Product(models.Model):
     
     
 class Issue(models.Model)  :
-    name=models.CharField(_("Name"), max_length=25,unique=True)
+    name=models.CharField(_("issue"), max_length=25,unique=True)
     note=models.CharField(_("Note"), max_length=50,default='No Note')
     def __str__(self):
         return str(self.name)
 
 class Technician(models.Model)  :
-    name=models.CharField(_("Name"), max_length=25,unique=True)
+    name=models.CharField(_("technician"), max_length=25,unique=True)
     note=models.CharField(_("Note"), max_length=50,default='No Note')
     def __str__(self):
         return str(self.name)
+    
+# class Officer_Name(models.Model)  :
+#     officer=models.CharField(_("officer"), max_length=25,unique=True)
+#     note=models.CharField(_("Note"), max_length=50,default='No Note')
+#     def __str__(self):
+#         return str(self.officer)
 
 class Action(models.Model)  :
-    name=models.CharField(_("Name"), max_length=25,unique=True)
+    name=models.CharField(_("action"), max_length=25,unique=True)
     note=models.CharField(_("Note"), max_length=50,default='No Note')
     def __str__(self):
         return str(self.name)
@@ -68,29 +75,31 @@ class Action(models.Model)  :
 class Request(models.Model):
     status=models.CharField(_("Req_Status"), max_length=50,choices=ORDER_STATUS,default=ORDER_STATUS[0])
     client=models.CharField(_("client_kind"), max_length=50,choices=CLIENT_kind,default=ORDER_STATUS[0])
-    End_User = models.ForeignKey(End_User, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('End_User'),related_name='Request_client')
+    End_User = models.ForeignKey(End_User, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Client_Name'),related_name='Request_client')
     Vendor = models.ForeignKey(Vendor, on_delete=models.PROTECT,verbose_name=_('Vendor'),related_name='Request_Vendor')
     received_date=models.DateField(_("Received_Date"),default=timezone.now)
-    delivery_date=models.DateField(_("Delivery_Date"),null=True,blank=True)
-    ref=models.CharField(_("REF_NUM"), max_length=25,default='No Num')
+    note=models.CharField(_("Note"), max_length=50,default='No_Note')
     def __str__(self):
         return f"REQ--{str(self.id)}"
     
     def purchase(self):
         date=self.request_Failer_Detail.purchase_date
         return date
-    
+    def Delivery_d(self):
+        date=self.request_Delivery.delivery_date
+        return date
         
 class Failer_Detail(models.Model)  :
     request=models.ForeignKey(Request, on_delete=models.PROTECT,verbose_name=_('Request'),related_name='request_Failer_Detail')
     product=models.ForeignKey(Product, on_delete=models.PROTECT,verbose_name=_('Product'),related_name='Failer_Detail_Product')
-    serial=models.CharField(_("S.N_IN"), max_length=50)
+    serial=models.CharField(_("S.N_IN"), max_length=25)
     active=models.CharField(_("Active"), max_length=25,choices=WARRANTY,default=WARRANTY[0])
-    invoice=models.ImageField(_("invoice"), upload_to='Invoice',null=True,blank=True)
     purchase_date=models.DateField(_("Purchase_Date"),null=True,blank=True)
+    invoice=models.ImageField(_("invoice"), upload_to='Invoice',null=True,blank=True)
     issue=models.ForeignKey(Issue, on_delete=models.PROTECT,verbose_name='Issue',related_name='Issue_name')
     detail=models.CharField(_("Detail"),max_length=300,default='Write Issue Detail')
-    note=models.CharField(_("Note"), max_length=50,default='No Note')
+    ref=models.CharField(_("REF_NUM"), max_length=25,default='No_Ref')
+    note=models.CharField(_("Note"), max_length=50,default='No_Note')
     
     def __str__(self):
         return str(self.request)
@@ -103,9 +112,9 @@ class Failer_Detail(models.Model)  :
         name=self.request.End_User
         return name
     
-    def Delivery(self):
-        date=self.request.delivery_date
-        return date
+    # def Delivery(self):
+    #     date=self.request.request_Delivery.delivery_date
+    #     return date
     
     
 
@@ -115,6 +124,7 @@ class Action_Detail(models.Model)  :
     serial=models.CharField(_("S.N_Out"), max_length=50)
     action=models.ForeignKey(Action, on_delete=models.PROTECT,verbose_name='Action',related_name='Action_name')
     detail=models.CharField(_("Detail"),max_length=300,default='Write Action Detail')
+    delivery_date=models.DateField(_("Delivery_Date"),null=True,blank=True)
     technician=models.ForeignKey(Technician, on_delete=models.PROTECT,verbose_name='Technician',related_name='Action_Technician')
     cost=models.IntegerField(_("Cost"),default=0)
     note=models.CharField(_("Note"), max_length=50,default='No Note')
@@ -129,10 +139,9 @@ class Action_Detail(models.Model)  :
         name=self.request.End_User
         return name
     
-    def Delivery(self):
-        date=self.request.delivery_date
-        return date
-    
+    # def Delivery(self):
+    #     date=self.request__request_Delivery.delivery_date
+    #     return date
 class Follow_Up(models.Model):
     request=models.ForeignKey(Request, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Request'),related_name='request_Follow_Up')
     connect=models.CharField(_("Connect"), max_length=50,choices=CONNECT,default=ORDER_STATUS[0])
@@ -146,3 +155,12 @@ class Follow_Up(models.Model):
     class Meta:
         verbose_name_plural = "Follow_Up"
     
+
+# class Delivery(models.Model):
+#     request=models.OneToOneField(Request, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Request'),related_name='request_Delivery')
+#     delivery_kind=models.CharField(_("Active"), max_length=25,choices=DELIVERY_kind,default=WARRANTY[0])
+#     officer=models.ForeignKey(Officer_Name, on_delete=models.PROTECT,verbose_name='Officer',related_name='Delivery_Officer')
+#     address=models.CharField(_("Address"), max_length=200,default="NO_Address")
+#     note=models.CharField(_("Note"), max_length=50,default='No Note')
+#     def __str__(self):
+#         return str(self.request)

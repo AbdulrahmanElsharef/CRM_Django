@@ -9,7 +9,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to the ALtawheed_Technical",
     # Copyright on the footer
     "copyright": "Abdulrahman Elsharef",
-    "user_avatar": "./logo.png",
+    "user_avatar": None,
     "language_chooser": False,
     ############
     # Top Menu #
@@ -32,9 +32,15 @@ JAZZMIN_SETTINGS = {
         # App with dropdown menu to all its models pages (Permissions checked against models)
         {"app": "Technical"},
         
-        {"name": "Print", "url": "http://127.0.0.1/:8000/print",
+        {"name": "Print", "url": "http://127.0.0.1:8000/print",
             "new_window": True},
         {"name": "ALtawheed", "url": "https://altawheedgroup.com/",
+            "new_window": True},
+        {"name": "Warranty", "url": "https://warranty.altawheedgroup.com/",
+            "new_window": True},
+        {"name": "WhatsApp", "url": "https://web.whatsapp.com/",
+            "new_window": True},
+        {"name": "Messenger", "url": "http://m.me/103844047982053",
             "new_window": True},
     ],
 

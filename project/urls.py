@@ -21,11 +21,12 @@ from django.conf.urls.static import static
 from Technical import views
 
 urlpatterns = [
-    # path('admin/', include('django_admin_filter.urls')),
     path('admin/', admin.site.urls),
-    path('print/', views.ddd,name='print'),
-    path('print/<int:id>/', views.request_invoice,name='invoice'),
-    # path('', include('admin_soft.urls')),
+    path('print/', views.print,name='print'),
+    path('print/invoice/<int:id>/', views.invoice,name='invoice'),
+    path('print/technical/<int:id>/', views.technical,name='technical'),
+    path('print/credit_note/<int:id>/', views.credit_note,name='credit_note'),
+    path('print/replacement/<int:id>/', views.replacement,name='replacement'),
 
 ]
 
