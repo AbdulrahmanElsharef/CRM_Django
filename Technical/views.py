@@ -1,21 +1,13 @@
 from django.shortcuts import render,get_object_or_404
-from .models import Request
-from .filter import RequesttFilter
+from .models import Request,Report,Action_Detail
+# from .filter import RequesttFilter
 from django.core.paginator import Paginator
 
 
 # Create your views here.
 def print(request):
     requests=Request.objects.all()
-    # myfilter = RequesttFilter(request.GET, queryset=requests)
     context={"objects":requests,}
-    # orders = myfilter.qs
-    # paginator = Paginator(orders, 100)
-    # page_number = request.GET.get("page")
-    # page_obj = paginator.get_page(page_number)
-    # # Render a template with the records
-    # context = {"objects":requests,'page_obj': page_obj,
-    #            'myfilter': myfilter,}
     return render(request, "print.html",context)
 
 def invoice(request, id):
@@ -24,11 +16,6 @@ def invoice(request, id):
     context={'obj':obj,}
     return render(request, 'invoice.html', context)
 
-def technical(request, id):
-    # Retrieve a specific record by ID
-    obj = get_object_or_404(Request, id=id)
-    context={'obj':obj,}
-    return render(request, 'technical.html', context)
 
 def credit_note(request, id):
     # Retrieve a specific record by ID
@@ -42,8 +29,15 @@ def replacement(request, id):
     context={'obj':obj,}
     return render(request, 'replacement.html', context)
 
-def report(request, id):
+
+
+def report(request):
+    requests=Report.objects.all()
+    context={"objects":requests,}
+    return render(request, "report.html",context)
+
+def technical(request, id):
     # Retrieve a specific record by ID
-    obj = get_object_or_404(Request, id=id)
-    context={'obj':obj,}
-    return render(request, 'report.html', context)
+    obj = get_object_or_404(Report, id=id)
+    context={'obj':obj,"objects":Action_Detail.objects.all}
+    return render(request, 'technical.html', context)

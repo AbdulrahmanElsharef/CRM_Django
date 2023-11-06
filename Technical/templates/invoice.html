@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      ALTAWHEED Invoice
+      Invoice
     </title>
     <link rel="stylesheet" href="{% static 'css/invoice.css' %}">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -66,10 +66,10 @@
                           <h5 class="date">Received Date :{{obj.received_date|date:'D-d M Y' }} </h5>
                       </div>
                   </div>
-                  <table border="0" cellspacing="0" cellpadding="0">
+                  <table >
                       <thead>
                           <tr>
-                              <th class="text-left"><H6>No</H6></th>
+                              <th class="text-left" ><H6>No</H6></th>
                               <th class="text-left"><H6>DESCRIPTION</H6></th>
                               <th class="text-left"><h6>Barcode</h6></th>
                               <th class="text-left"><h6>Serail</h6></th>
@@ -80,12 +80,12 @@
                       </thead>
                       <tbody>
                         {% for fail in obj.request_Failer_Detail.all %}
-                          <tr>
+                          <tr style="font-size:small;">
                             <td class="text-left"><h6>{{ forloop.counter }}</td></h6>
                             <td class="text-left"><h6>{{fail.product.des}}</td></h6>
                               <td class="text-left"><h6>{{fail.product.barcode}}</h6></td>
                               <td class="text-left"><h6>{{fail.serial_in}}</h6></td>
-                              <td class="text-left"><h6>{{fail.purchase_date|date:'D-d M Y'}}</h6></td>
+                              <td class="text-left"><h6>{{fail.purchase_date|date:'d M Y'}}</h6></td>
                               <td class="text-left"><h6>{{fail.issue}}</h6></td>
                               <td class="text-left"><h6>{{fail.note}}</h6></td>
                             </tr>
@@ -130,8 +130,8 @@
                   </div>
                   
                   <div class="row">
-                    <img style="width: 100%;position:fixed;
-                    bottom:0px;
+                    <img style="width: 100%;
+                    bottom:-100px;
                     left:0%;" src="/static/new.png" data-holder-rendered="true" />
                   </div>
           </div>

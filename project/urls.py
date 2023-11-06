@@ -24,10 +24,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('print/', views.print,name='print'),
     path('print/invoice/<int:id>/', views.invoice,name='invoice'),
-    path('print/technical/<int:id>/', views.technical,name='technical'),
     path('print/credit_note/<int:id>/', views.credit_note,name='credit_note'),
     path('print/replacement/<int:id>/', views.replacement,name='replacement'),
-    path('print/report/<int:id>/', views.report,name='report'),
+    path('report/', views.report,name='report'),
+    path('report/<int:id>/', views.technical,name='technical'),
 
 ]
 

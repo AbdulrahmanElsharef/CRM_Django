@@ -37,20 +37,19 @@ class ActionAdmin(admin.ModelAdmin):
 
 
 
-class Follow_UpTabularInline(admin.TabularInline):
-    model = Follow_Up
-class ActionTabularInline(admin.TabularInline):
-    model = Action_Detail
-    
-class IssueTabularInline(admin.TabularInline):
-    model = Failer_Detail
-class ReportTabularInline(admin.TabularInline):
-    model = Report
+# class Follow_UpTabularInline(admin.TabularInline):
+#     model = Follow_Up
+# class ActionTabularInline(admin.TabularInline):
+#     model = Action_Detail
+# class IssueTabularInline(admin.TabularInline):
+#     model = Failer_Detail
+# class ReportTabularInline(admin.TabularInline):
+#     model = Report
 
   
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
-    inlines = [IssueTabularInline,ActionTabularInline,ReportTabularInline,Follow_UpTabularInline]  
+    # inlines = [IssueTabularInline,ActionTabularInline,ReportTabularInline,Follow_UpTabularInline]  
 
     list_display =['__str__','status','client','End_User','Vendor','received_date','note']
     list_filter=['id','status','client','End_User','Vendor__name','received_date',]

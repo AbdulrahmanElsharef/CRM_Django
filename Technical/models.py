@@ -94,6 +94,7 @@ class Failer_Detail(models.Model)  :
     invoice=models.ImageField(_("invoice"), upload_to='Invoice',null=True,blank=True)
     issue=models.ForeignKey(Issue, on_delete=models.PROTECT,verbose_name='Issue',related_name='Issue_name')
     detail=models.CharField(_("Detail"),max_length=300,default='Write Issue Detail')
+    ref=models.CharField(_("REF_NUM"), max_length=25,default='No_Ref')
     note=models.CharField(_("Note"), max_length=50,default='No_Note')
     
     def __str__(self):
@@ -153,7 +154,8 @@ class Follow_Up(models.Model):
     
 
 class Report(models.Model):
-    request=models.OneToOneField(Request, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Request'),related_name='request_Report')
+    request=models.ForeignKey(Request, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Request'),related_name='request_Report')
+    product=models.ForeignKey(Product, on_delete=models.SET_NULL,null=True,blank=True,verbose_name=_('Product'),related_name='Report_Product')
     complain=models.TextField(_("Complain"),max_length=500)
     Report=models.TextField(_("Report"),max_length=500)
     advice=models.TextField(_("Advice"), max_length=500)
